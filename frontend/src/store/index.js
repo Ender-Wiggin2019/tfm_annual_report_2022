@@ -3,21 +3,22 @@ import { getAPI } from '../axios.api';
 
 export default createStore({
 	state: {
-		email: '',
+		name: '',
 		accessToken: null,
 		refreshToken: null,
-		userType: ''
+		userType: '',
+		userTotal: ''
 	},
 	mutations: {
-		updateStorage(state, { access, refresh, email, password }){
+		updateStorage(state, { access, refresh, name, password }){
 			state.accessToken = access;
 			state.refreshToken = refresh;
-			state.email = email;
+			state.name = name;
 		},
 		destroyToken(state){
 			state.accessToken = null;
 			state.refreshToken = null;
-			state.email = '';
+			state.name = '';
 		}
 	},
 	getters:{
@@ -28,11 +29,11 @@ export default createStore({
 	actions: {
 		userLogin(context, credentials){
 			const userData = {
-				'email': credentials.email,
+				'name': credentials.name,
 				'password': credentials.password
 			}
 			return new Promise((resolve, reject) => {
-				getAPI.post('/api/token/', 
+				getAPI.post('/api/token/',
 					userData, {
 						headers:{
 							'Content-Type': 'application/json'
@@ -43,7 +44,7 @@ export default createStore({
 					context.commit('updateStorage', {
 						access: response.data.access,
 						refresh: response.data.refresh,
-						email: credentials.email,
+						name: credentials.name,
 					})
 					resolve()
 				})

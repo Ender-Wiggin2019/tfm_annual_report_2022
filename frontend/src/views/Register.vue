@@ -9,21 +9,21 @@
                 </section>
 
                 <section class="form-register flex-1 mt-6">
-                    <form v-on:submit.prevent="register" class="reigster-form"> 
-                        <div class="bg-green-500 text-green-900 absolute px-6 py-4 rounded-xl alert-success" id="registerAlert" style="visibility: hidden; top: -120px; right: 20px">Account created successfully!</div> 
-                        <p v-if="error" class="alert-danger bg-red-500 text-red-900 rounded-xl px-4 py-2 mb-6">{{errorMsg}}</p>          
+                    <form v-on:submit.prevent="register" class="reigster-form">
+                        <div class="bg-green-500 text-green-900 absolute px-6 py-4 rounded-xl alert-success" id="registerAlert" style="visibility: hidden; top: -120px; right: 20px">Account created successfully!</div>
+                        <p v-if="error" class="alert-danger bg-red-500 text-red-900 rounded-xl px-4 py-2 mb-6">{{errorMsg}}</p>
                         <div class="form-div">
                             <label for="" class="form-label">Full Name</label>
-                            <input type="text" v-model="name" name="name" class="form-elem form-elem--name" data-id="name" autocomplete="off" placeholder="John Doe" required>
+                            <input type="text" v-model="name" name="name" class="form-elem form-elem--name" data-id="name" autocomplete="off" placeholder="Your TM User Name" required>
                             <span class="note"></span>
                         </div>
 
-                        <div class="form-div">
-                            <label for="" class="form-label">Email</label>
-                            <input type="text" v-model="email" name="email" class="form-elem form-elem--email" data-id="email" autocomplete="off" placeholder="john.doe@gmail.com" required>
-                            <span class="note"></span>
-                        </div>
-                        
+<!--                        <div class="form-div">-->
+<!--                            <label for="" class="form-label">Email</label>-->
+<!--                            <input type="text" v-model="email" name="email" class="form-elem form-elem&#45;&#45;email" data-id="name" autocomplete="off" placeholder="john.doe@gmail.com" required>-->
+<!--                            <span class="note"></span>-->
+<!--                        </div>-->
+
                         <div class="form-div">
                             <label for="" class="form-label">Password <small>(6 characters minimum)</small></label>
                             <input type="password" v-model="password" name="password" class="form-elem form-elem--pass" data-id="pass" autocomplete="off" placeholder="********" minlength="6" required>
@@ -49,7 +49,7 @@
 
                         <div class="form-bottom flex items-center justify-between">
                             <button type="submit" class="btn--primary" id="registerBtn">Register</button>
-                            <div class="goto-signup">Already have an account? 
+                            <div class="goto-signup">Already have an account?
                                 <router-link to="/login" exact class="text-blue-600">Login</router-link>
                             </div>
                         </div>
@@ -72,7 +72,6 @@
         data() {
             return{
                 name: '',
-                email: '',
                 password: '',
                 password2: '',
                 user_type: '',
@@ -84,7 +83,6 @@
             register(){
                 const userRegisterData = {
                     'name': this.name,
-                    'email': this.email,
                     'password': this.password,
                     'password2': this.password2,
                     'user_type': this.user_type

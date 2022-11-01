@@ -1,19 +1,20 @@
 <template>
     <div class="front-page flex h-screen">
-        <Hero />
+<!--  <div class="mainApp">-->
+<!--        <Hero />-->
 		<section class="second">
             <div class="p-6 form-section">
                 <section class="form-title">
-                    <p class="form-title--pre text-gray-600">Welcome</p>
-                    <p class="form-title--heading"><span>Login to</span><span>Assignment Portal</span></p>
+<!--                    <p class="form-title&#45;&#45;pre text-gray-600">Welcome</p>-->
+<!--                    <p class="form-title&#45;&#45;heading"><span>Login to</span><span>Assignment Portal</span></p>-->
                 </section>
 
                 <section class="form-login mt-6c">
-                    <form v-on:submit.prevent="login" class="login-form"> 
-                        <p v-if="incorrectAuth" class="bg-red-500 text-red-900 rounded-xl py-2 px-4 mb-6 alert-danger" style="width: 400px"><i class="fas fa-exclamation-triangle mr-2"></i>Invalid email or password</p>           
+                    <form v-on:submit.prevent="login" class="login-form">
+                        <p v-if="incorrectAuth" class="bg-red-500 text-red-900 rounded-xl py-2 px-4 mb-6 alert-danger" style="width: 400px"><i class="fas fa-exclamation-triangle mr-2"></i>Invalid name or password</p>
                         <div class="form-component">
-                            <input type="text" name="email" v-model="email" class="input-field" autocomplete="off" required>
-                            <span class="label-placeholder">Email</span>
+                            <input type="text" name="name" v-model="name" class="input-field" autocomplete="off" required>
+                            <span class="label-placeholder">User Name</span>
                         </div>
 
                         <div class="form-component">
@@ -23,9 +24,9 @@
 
                         <div class="form-bottom flex items-center justify-between">
                             <button type="submit" class="btn--primary" id="loginBtn">Login</button>
-                            <div class="goto-signup">Don't have an account? 
-                                <router-link to="/register" exact class="text-blue-600">Register</router-link>
-                            </div>
+<!--                            <div class="goto-signup">账号不符?-->
+<!--                                <router-link to="/register" exact class="text-blue-600">注册</router-link>-->
+<!--                            </div>-->
                         </div>
                     </form>
                 </section>
@@ -44,7 +45,7 @@
         },
         data() {
             return{
-                email: '',
+                name: '',
                 password: '',
                 incorrectAuth: false
             }
@@ -55,7 +56,7 @@
                 loginBtn.innerHTML = '<i class="fas fa-circle-notch load-icon"></i> <span class="ml-2">Logging In<span>';
 
                 this.$store.dispatch('userLogin', {
-                    email: this.email,
+                    name: this.name,
                     password: this.password
                 })
                 .then(() => {
@@ -73,13 +74,22 @@
 </script>
 
 <style scoped>
+
+.mainApp {
+  background-image: linear-gradient(#ff7853, #ffd287);
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑,
+  STHeiti, MingLiu;
+  font-size: 4vw;
+}
     .form-login{
         flex: 2;
         padding: 1rem 2rem;
     }
 
     .form-component{
-        width: 400px;
+        width: 200px;
         height: 50px;
         position: relative;
         margin-bottom: 1.5rem;
@@ -94,7 +104,7 @@
     }
 
     .input-field{
-        width: 400px;
+        width: 200px;
         height: 50px;
         background: #Ffffff;
         border: 0;
@@ -112,7 +122,7 @@
     .form-bottom{
         width: 400px;
     }
-    
+
     .load-icon{
         margin-right: .5rem;
         animation: rotateLoader 1s infinite;

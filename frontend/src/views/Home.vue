@@ -14,6 +14,7 @@
   import Navigation from '@/components/Navigation'
   import Admin from '@/components/Admin.comp'
   import User from '@/components/User.comp'
+  // import User from '@/views/User'
   import Client from '@/components/Client.comp'
   import { getAPI } from '../axios.api'
   import { mapState } from 'vuex'
