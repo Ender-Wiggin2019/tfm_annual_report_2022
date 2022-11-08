@@ -28,8 +28,8 @@ class SignupView(APIView):
             if User.objects.filter(name=name).exists():
                 raise serializers.ValidationError({'error': 'User already exists'})
             else:
-                if len(password) < 6:
-                    raise serializers.ValidationError({'error': 'Password must be greater than 6'})
+                if len(password) < 2:
+                    raise serializers.ValidationError({'error': 'Password must be greater than 2'})
                 else:
                     user = User.objects.create_user(name=name, password=password)
                     UserCheck.objects.create(user_type=user_type, user=user)
