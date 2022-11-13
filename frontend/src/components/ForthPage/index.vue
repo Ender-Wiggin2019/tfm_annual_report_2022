@@ -3,13 +3,13 @@
     <div class="a">
       你平均每局游戏提升
       <!--      <span class="value"> {{ userTotal["create_no"] }} </span>-->
-      <span class="value"> {{ userTotal["increase_tr"] }} </span>
+      <span class="value"> {{ userTotal["increase_tr"]  | numFilter}} </span>
       改造度
     </div>
     <div class="b">
       打出
       <!--      <span class="value"> {{ userTotal["create_no"] }} </span>-->
-      <span class="value"> {{ userTotal["play_cards_total"] }} </span>
+      <span class="value"> {{ userTotal["play_cards_total"] | numFilter}} </span>
       张卡牌
     </div>
 
@@ -56,11 +56,17 @@ export default {
       return this.$store.state.userTotal
     }
   },
+  filters: {
+    numFilter (value) {
+      // 截取当前数据到小数点后两位
+      let realVal = parseFloat(value).toFixed(0)
+      return realVal
+    }
+  },
   created() {
     const userData = {
       'name': this.$store.state.name,
     }
-    console.log(this.$store.state.name);
     getAPI.post('/api/account/userdata/', userData, {
       headers: {
         'Authorization': `Bearer ${this.$store.state.accessToken}`,

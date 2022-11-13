@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="a">这一年在大家的齐心协力下</div>
-    <div class="b">火星上一共建造了<span class="value">1957</span>座小型风车</div>
-    <div class="c">寻找了<span class="value">6856</span>次地外生命</div>
-    <div class="d">养育了<span class="value">19382</span>只缓步微生物</div>
+    <div class="b">火星上一共建造了<span class="value">2905</span>座小型风车</div>
+    <div class="c">寻找了<span class="value">5068</span>次地外生命</div>
+    <div class="d">养育了<span class="value">28258</span>只缓步微生物</div>
     <div class="e">不积跬步，无以至千里~</div>
     <div class="f">出发去看看我们的2022吧~</div>
   </div>

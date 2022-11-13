@@ -3,11 +3,11 @@
     <div class="a">
       <div class="b">#2022</div>
       <div class="c">火星年度报告</div>
-      <div class="d">关键词</div>
-      <div class="e">吃</div>
-      <div class="f"></div>
+<!--      <div class="d">称号</div>-->
+<!--      <div class="e">吃</div>-->
+<!--      <div class="f"></div>-->
       <div class="d">称号</div>
-      <div class="e" style="font-size: 5vw">国服第一XXX</div>
+      <div class="e" style="font-size: 5vw" ><pre>{{userTotal["ac"] }} </pre></div>
 <!--      <div class="e">{{ b }}</div>-->
 <!--      <div class="f"></div>-->
 <!--      <div class="d">话痨月</div>-->
@@ -17,63 +17,52 @@
         <img class="p" src="@/assets/images/result.png" />
         <img class="y" src="@/assets/images/cloud2.png" />
       </div>
-      <div class="j">再见</div>
-      <div class="i">2021</div>
     </div>
   </div>
 </template>
 
 <script>
+import { getAPI } from '@/axios.api'
 import data from "@/data.json";
 export default {
   data() {
-    const { loveWord, mostWord, monthGroup } = data;
-    let max = monthGroup[0];
-    for (let i of monthGroup) {
-      if (i[1] > max[1]) {
-        max = i;
-      }
-    }
-    let lc = {
-      w: "",
-      c: 0,
-    };
-    Object.keys(loveWord).forEach((key) => {
-      const count = loveWord[key];
-      if (count > lc.c) {
-        lc = {
-          w: key,
-          c: count,
-        };
-      }
-    });
-
-    let mc = {
-      w: "",
-      c: 0,
-    };
-
-    Object.keys(mostWord).forEach((key) => {
-      const count = mostWord[key];
-      if (count > mc.c) {
-        mc = {
-          w: key,
-          c: count,
-        };
-      }
-    });
     return {
-      a: mc.w,
-      b: lc.w,
-      c: max[0],
+      ...data,
     };
   },
+  computed: {
+    userTotal(){
+      // return JSON.parse(this.$store.state.userTotal)
+      return this.$store.state.userTotal
+    }
+  },
+  filters: {
+    numFilter (value) {
+      // 截取当前数据到小数点后两位
+      let realVal = parseFloat(value).toFixed(0)
+      return realVal
+    }
+  },
+  created() {
+    const userData = {
+      'name': this.$store.state.name,
+    }
+    getAPI.post('/api/account/userdata/', userData, {
+      headers: {
+        'Authorization': `Bearer ${this.$store.state.accessToken}`,
+      }
+    })
+        .then(res => {
+          // this.$store.state.userTotal = res.data.userTotal;
+          this.$store.state.userTotal = JSON.parse(res.data);
+        })
+        .catch(err => console.error(err))
+  }
 };
 </script>
-
 <style scoped>
 .v {
-  background-image: linear-gradient(#f89d92, #fac9bf);
+  background-image: linear-gradient(#ff7853, #ffd287);
   height: 100%;
   color: #73e373;
 }
@@ -96,11 +85,13 @@ export default {
 .d {
   color: black;
   font-weight: bold;
+  font-size: 10vw;
 }
 .e {
+  margin-top: 2vh;
   color: black;
   /* font-weight: bold; */
-  font-size: 12vw;
+  font-size: 8vw;
 }
 .f {
   height: 1px;
@@ -113,14 +104,14 @@ export default {
   position: absolute;
   width: 27vw;
   left: 55vw;
-  top: 40vh;
+  top: 15vh;
   z-index: 2;
 }
 .y {
   position: absolute;
   width: 60vw;
   left: 36vw;
-  top: 50vh;
+  top: 25vh;
 }
 .i,
 .j {

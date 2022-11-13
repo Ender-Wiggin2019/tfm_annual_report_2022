@@ -62,9 +62,8 @@ export default {
   },
   created() {
     const userData = {
-      'name': this.$store.state.name,
+      'name': (this.$store.state.name).toLowerCase(),
     }
-    console.log(this.$store.state.name);
     getAPI.post('/api/account/userdata/', userData, {
       headers: {
         'Authorization': `Bearer ${this.$store.state.accessToken}`,
