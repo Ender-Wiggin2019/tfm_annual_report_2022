@@ -8,7 +8,7 @@
       <span class="value">
         {{ userTotal["corporation"] }}
       </span>
-      <span class="value" v-if="userTotal['corporation2'] !== null">
+      <span class="value" v-if="userTotal['corporation2'] !== null && userTotal['corporation2'] !== ''">
         和 {{ userTotal["corporation2"] }}
       </span>
       公司<br>
@@ -53,9 +53,8 @@ export default {
   },
   created() {
     const userData = {
-      'name': this.$store.state.name,
+      'name': (this.$store.state.name).toLowerCase(),
     }
-    console.log(this.$store.state.name);
     getAPI.post('/api/account/userdata/', userData, {
       headers: {
         'Authorization': `Bearer ${this.$store.state.accessToken}`,
@@ -104,7 +103,7 @@ export default {
   padding-top: 5vh;
   animation-name: slide-top;
   animation-duration: 1s;
-  animation-delay: 0.5s;
+  animation-delay: 1s;
   animation-fill-mode: backwards;
 }
 .b {
@@ -114,10 +113,9 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   line-height: 2;
-  color: ebf45f;
   animation-name: slide-top;
   animation-duration: 1s;
-  animation-delay: 1s;
+  animation-delay: 1.5s;
   animation-fill-mode: backwards;
 }
 .c {
@@ -133,7 +131,7 @@ export default {
   font-weight: bolder;
   animation-name: slide-top;
   animation-duration: 1s;
-  animation-delay: 2s;
+  animation-delay: 0.5s;
   animation-fill-mode: backwards;
 }
 .e{

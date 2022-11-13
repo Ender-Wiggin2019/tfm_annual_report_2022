@@ -1,7 +1,7 @@
 <template>
   <div class="parent">
     <div class="a">
-      本台刚刚收到红斑实验室的分析结果:
+      你今年的雷达图如下:
       <!--      <span class="value"> {{ maxMonth[0] }} </span>点聊天 说的话 有<span-->
       <!--        class="value"-->
       <!--      >-->
@@ -15,6 +15,7 @@
 <script>
 import * as echarts from "echarts";
 import { hourGroup } from "@/data.json";
+import {getAPI} from "@/axios.api";
 export default {
   data() {
     return {
@@ -23,15 +24,25 @@ export default {
     };
   },
   computed: {
-    maxMonth() {
-      let max = this.arr[0];
-      for (let i of this.arr) {
-        if (i[1] > max[1]) {
-          max = i;
-        }
+    userTotal(){
+      // return JSON.parse(this.$store.state.userTotal)
+      return this.$store.state.userTotal
+    }
+  },
+  created() {
+    const userData = {
+      'name': (this.$store.state.name).toLowerCase(),
+    }
+    getAPI.post('/api/account/userdata/', userData, {
+      headers: {
+        'Authorization': `Bearer ${this.$store.state.accessToken}`,
       }
-      return max;
-    },
+    })
+        .then(res => {
+          // this.$store.state.userTotal = res.data.userTotal;
+          this.$store.state.userTotal = JSON.parse(res.data);
+        })
+        .catch(err => console.error(err))
   },
   mounted() {
     this.myChart = echarts.init(this.$refs.chart);
@@ -53,11 +64,11 @@ export default {
           polar : [
             {
               indicator : [
-                { text: '致胜', max: 100, color: 'white'},
-                { text: '改造', max: 100, color: 'white'},
-                { text: '打牌', max: 100, color: 'white'},
-                { text: '进攻', max: 100, color: 'white'},
-                { text: '爆发', max: 100, color: 'white'},
+                { text: '胜率', max: 1, color: 'white'},
+                { text: '改造', max: 25, color: 'white'},
+                { text: '打牌', max: 35, color: 'white'},
+                { text: '拖拖', max: 1, color: 'white'},
+                { text: '分数', max: 1, color: 'white'},
                 { text: '勤奋', max: 100, color: 'white'},
               ],
               axisName: {
@@ -85,7 +96,7 @@ export default {
               type: 'radar',
               data : [
                 {
-                  value : [50, 70, 60, 80, 40, 20],
+                  value : [Math.max(this.$store.state.userTotal["bayesPerc"], this.$store.state.userTotal["bayesPerc_2p"]), Math.min(25, this.$store.state.userTotal["increase_tr"]), Math.min(35, this.$store.state.userTotal["play_cards_total"]), Math.min(1, Math.max(this.$store.state.userTotal["gen_rank"], this.$store.state.userTotal["gen_rank_2p"]) / 100), Math.min(1, (1000 - Math.max(this.$store.state.userTotal["playerScore_rank"], this.$store.state.userTotal["playerScore_rank_2p"])) / 1000), Math.min(100, this.$store.state.userTotal["total"])],
                   name : ''
                 }
               ],

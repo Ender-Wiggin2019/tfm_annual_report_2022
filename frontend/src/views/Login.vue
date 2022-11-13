@@ -37,7 +37,7 @@
 
 <script>
     import Hero from '@/components/Hero.vue';
-
+    import crypto from 'crypto'
     export default {
         name: "Login",
         components: {
@@ -53,11 +53,13 @@
         methods: {
             login(){
                 const loginBtn = document.querySelector('#loginBtn');
+                let md5 = crypto.createHash('md5');
+                let passwordMd5 = md5.update(this.password).digest('hex')
                 loginBtn.innerHTML = '<i class="fas fa-circle-notch load-icon"></i> <span class="ml-2">Logging In<span>';
 
                 this.$store.dispatch('userLogin', {
                     name: this.name,
-                    password: this.password
+                    password: passwordMd5
                 })
                 .then(() => {
                     this.$router.push({ name: 'Home' });
